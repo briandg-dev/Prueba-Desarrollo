@@ -18,7 +18,11 @@ model Users {
   id Int @id @default(autoincrement())
   nombres String?
   apellido String?
-  mail String?
+  mail String
   numeroDocumento Decimal
   tipoDocumento Int
+  password String?
+  rolUser Int?
+  codigoSector Int?
+  codigoEmpresa Int?
 }

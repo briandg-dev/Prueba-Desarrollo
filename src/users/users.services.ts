@@ -6,11 +6,12 @@ import { PrismaService } from "src/prisma/prisma.services";
 export class UsersService {
 
     constructor(private prisma: PrismaService) {}
-
+   
+    //GET ALL
     async getAllUsers(): Promise<Users[]> {
         return this.prisma.users.findMany();
     }
-
+    //GETONE
     async getUserById(id: number): Promise<Users | null> {
         return this.prisma.users.findUnique({
             where: {
@@ -18,10 +19,27 @@ export class UsersService {
             }
         });
     }
-
-     async createUser(data: Users): Promise<Users> {
+    //CREATE
+    async createUser(data: Users): Promise<Users> {
         return this.prisma.users.create({
             data
+        });
+    }
+    //UPDATE
+    async updateUser(id: number,data: Users): Promise<Users> {
+        return this.prisma.users.update({
+            where: {
+                id
+            },
+            data
+        });
+    }
+    //DELETE
+    async deleteUser(id: number): Promise<Users | null> {
+        return this.prisma.users.delete({
+            where: {
+                 id
+            }
         });
     }
 }

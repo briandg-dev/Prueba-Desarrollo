@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
 import { UsersService } from './users.services';
 import type { Users } from '@prisma/client';
 @Controller('users')
@@ -17,6 +17,23 @@ export class UsersController {
 
     @Get(':id')
     async getUserById(@Param('id') id: string) {
-        return this.usersService.getUserById(Number(id));
+        const userFound = await this.usersService.getUserById(Number(id));
+        if (!userFound) throw new NotFoundException('No existe usuario'); 
+        return userFound;
+    }
+
+     @Delete(':id')
+    async deleteUser(@Param('id') id: string) {
+        try {
+            return await this.usersService.deleteUser(Number(id)); //necesita await porqe es asincrono 
+        } catch (error) {
+            throw new NotFoundException("El usuario no existe");
+        }
+        
+    }
+
+    @Put(':id')
+    async updateUser(@Param('id') id: string,@Body() data: Users) {
+        return this.usersService.updateUser(Number(id),data);
     }
 }

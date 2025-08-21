@@ -19,12 +19,14 @@ export class UsersService {
             }
         });
     }
+    
     //CREATE
     async createUser(data: Users): Promise<Users> {
         return this.prisma.users.create({
             data
         });
     }
+    
     //UPDATE
     async updateUser(id: number,data: Users): Promise<Users> {
         return this.prisma.users.update({
@@ -34,6 +36,7 @@ export class UsersService {
             data
         });
     }
+    
     //DELETE
     async deleteUser(id: number): Promise<Users | null> {
         return this.prisma.users.delete({
@@ -42,4 +45,5 @@ export class UsersService {
             }
         });
     }
+    
 }

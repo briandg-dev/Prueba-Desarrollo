@@ -32,3 +32,13 @@ model Roles {
   nombre String
   descripcion String 
 }
+
+model Empresa {
+  id          Int     @id @default(autoincrement())
+  descripcion String  
+}
+
+model Sector {
+  id          Int     @id @default(autoincrement())
+  descripcion String  
+}

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Put, Param, Delete, NotFoundException } from '@nestjs/common';
 import { EmpresaService } from './empresa.service';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
@@ -25,9 +25,14 @@ export class EmpresaController {
     return this.empresaService.findById(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async updateEmpresa(@Param('id') id: string, @Body() updateEmpresaDto: UpdateEmpresaDto) {
-    return this.empresaService.update(+id, updateEmpresaDto);
+    try {
+      return await this.empresaService.update(Number(id), updateEmpresaDto);
+    }
+    catch (error) {
+      throw new NotFoundException("La empresa a editar no existe");
+    }
   }
 
   @Delete(':id')

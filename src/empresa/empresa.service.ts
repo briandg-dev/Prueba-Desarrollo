@@ -28,7 +28,7 @@ export class EmpresaService {
 
     //UPDATE
     async update(id: number, data: UpdateEmpresaDto) {
-        return this.prisma.users.update({
+        return this.prisma.empresa.update({
             where: {
                 id
             },

@@ -1,6 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsDecimal, IsEmail, IsNumber, IsString, Length, MinLength } from "class-validator";
-import { Decimal } from "generated/prisma/runtime/library";
+import { IsEmail, IsNumber, IsString, Length, MinLength } from "class-validator";
 
 export class RegisterDto {
     @Transform(({ value }) => value.trim())

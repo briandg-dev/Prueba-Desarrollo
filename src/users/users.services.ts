@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { Users } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.services";
+import { createUserDto } from "./dto/create-users";
+import { User } from "./entities/user.entity";
 
 @Injectable()
 export class UsersService {
@@ -19,12 +21,29 @@ export class UsersService {
             }
         });
     }
+
+    async getUserByEmail(email: string): Promise<Users | null> {
+        return this.prisma.users.findUnique({
+            where: {
+                 email
+            }
+        });
+    }
+    async getUserByDocument(tipoDocumento: number,numeroDocumento: string): Promise<Users | null> {
+        return this.prisma.users.findUnique({
+            where: {
+            tipoDocumento_numeroDocumento: {
+                tipoDocumento,
+                numeroDocumento
+            }
+            }
+        });
+    }
+    
     
     //CREATE
-    async createUser(data: Users): Promise<Users> {
-        return this.prisma.users.create({
-            data
-        });
+    async create(data: createUserDto): Promise<User> {
+        return this.prisma.users.create({data});
     }
     
     //UPDATE

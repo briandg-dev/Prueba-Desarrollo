@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,30 +9,32 @@ datasource db {
 }
 
 model Users {
-  id Int @id @default(autoincrement())
-  nombres String?
-  apellido String?
-  mail String
-  numeroDocumento Decimal
-  tipoDocumento Int
-  password String?
-  rolUser Int?
-  codigoSector Int?
-  codigoEmpresa Int?
+  id              Int     @id @default(autoincrement())
+  nombres         String?
+  apellido        String?
+  numeroDocumento String
+  tipoDocumento   Int
+  codigoEmpresa   Int?
+  codigoSector    Int?
+  password        String
+  rolUser         Int?
+  email           String @unique
+  
+  @@unique([tipoDocumento, numeroDocumento])
 }
 
 model Roles {
-  id Int @id @default(autoincrement())
-  nombre String
-  descripcion String 
+  id          Int    @id @default(autoincrement())
+  nombre      String
+  descripcion String
 }
 
 model Empresa {
-  id          Int     @id @default(autoincrement())
-  descripcion String  
+  id          Int    @id @default(autoincrement())
+  descripcion String
 }
 
 model Sector {
-  id          Int     @id @default(autoincrement())
-  descripcion String  
+  id          Int    @id @default(autoincrement())
+  descripcion String
 }

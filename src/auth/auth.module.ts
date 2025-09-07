@@ -4,9 +4,11 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtConstants } from './constants/jwt.constant';
+import { RolModule } from 'src/rol/rol.module';
 
 @Module({
   imports: [
+    RolModule,
     UsersModule, 
     JwtModule.register({
       global: true,

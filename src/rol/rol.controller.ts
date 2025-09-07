@@ -1,6 +1,7 @@
-import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, UseGuards} from '@nestjs/common';
 import { RolService } from './rol.services';
-import type { Roles } from '@prisma/client';
+import { RolDto } from './dto/rol.dto';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 @Controller('rol')
 export class RolController {
     constructor(private readonly rolService: RolService) {}
@@ -11,7 +12,8 @@ export class RolController {
     }
     
     @Post()
-    async createRol(@Body() data: Roles) {
+    @UseGuards(AuthGuard)
+    async createRol(@Body() data: RolDto) {
         return this.rolService.createRol(data);
     }
 
@@ -33,7 +35,7 @@ export class RolController {
     }
 
     @Put(':id')
-    async updateRol(@Param('id') id: string,@Body() data: Roles) {
+    async updateRol(@Param('id') id: string,@Body() data: RolDto) {
         return this.rolService.updateRol(Number(id),data);
     }
 }

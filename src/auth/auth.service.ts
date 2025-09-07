@@ -5,10 +5,11 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { RolService } from 'src/rol/rol.services';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService){}
+    constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService, private readonly rolService: RolService){}
     async register({nombres, email, password, numeroDocumento, tipoDocumento}: RegisterDto) {
         const vEmail = await this.usersService.getUserByEmail(email);
         if (vEmail) {
@@ -38,13 +39,31 @@ export class AuthService {
         if(!isPasswordValid) {
             throw new UnauthorizedException('La contrasen?a no coincide');
         }
+        const rol = await this.rolService.getRolById(user.rolUser ?? 0);
 
-        const payload = {email: user.email, rolUser: user.rolUser};
+        const payload = {email: user.email, rolUser: rol?.nombre};
         const token = await this.jwtService.signAsync(payload);
-
+        //const descripcion
         return {
             token,
             email
         }
+    }
+
+    async profile({email,rolUser}: {email: string; rolUser: number}) {
+       /* if (rolUser !== 1) {
+            throw new UnauthorizedException('El rol no es correcto');
+        }*/
+       
+        /*
+        const rolDescripcion = this.rolService.getRolById(rolUser);*/
+
+        return await this.usersService.getUserByEmail(email);
+        /*
+        const user = await this.usersService.getUserByEmail(email);
+        if (!user) {
+            throw new UnauthorizedException('El email no coincide');
+        }
+        return user; */
     }
 }

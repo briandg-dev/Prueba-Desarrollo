@@ -14,6 +14,11 @@ export class UsersController {
     
     @Post()
     async createUser(@Body() createUserDto: createUserDto) {
+        const userFound = await this.usersService.getUserByEmail(createUserDto.email);
+        if (userFound) throw new BadRequestException('El email ya existe');
+
+        const userFound2 = await this.usersService.getUserByDocument(createUserDto.tipoDocumento,createUserDto.numeroDocumento);
+        if (userFound2) throw new BadRequestException('El documento ya existe');
         return this.usersService.create(createUserDto);
     }
 

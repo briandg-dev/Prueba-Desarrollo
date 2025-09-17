@@ -10,7 +10,8 @@ export class EmpresaService {
     constructor(private prisma: PrismaService) {}
     //CREATE 
     async create(data: CreateEmpresaDto): Promise<Empresa> {
-        return this.prisma.empresa.create({data});}
+        return this.prisma.empresa.create({data});
+    }
 
     //GET ALL
     findAll(): Promise<Empresa[]> {

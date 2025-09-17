@@ -1,18 +1,20 @@
 import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, UseGuards} from '@nestjs/common';
 import { RolService } from './rol.services';
 import { RolDto } from './dto/rol.dto';
-import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 @Controller('rol')
 export class RolController {
     constructor(private readonly rolService: RolService) {}
 
     @Get()
+    @Auth(Role.ADMIN)
     async getAllRol() {
        return this.rolService.getAllRol();
     }
     
     @Post()
-    @UseGuards(AuthGuard)
+    @Auth(Role.ADMIN)
     async createRol(@Body() data: RolDto) {
         return this.rolService.createRol(data);
     }

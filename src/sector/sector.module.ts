@@ -12,4 +12,4 @@ import { SectorService } from "./sector.service";
 
 })
 
-export class RolModule {}
+export class SectorModule {}

@@ -12,14 +12,14 @@ model Users {
   id              Int     @id @default(autoincrement())
   nombres         String?
   apellido        String?
-  numeroDocumento String 
+  numeroDocumento String
   tipoDocumento   Int
   codigoEmpresa   Int?
   codigoSector    Int?
   password        String
   rolUser         Int?
-  email           String @unique
-  
+  email           String  @unique
+
   @@unique([tipoDocumento, numeroDocumento])
 }
 

@@ -3,7 +3,6 @@ import { Users } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.services";
 import { createUserDto } from "./dto/create-users";
 import { User } from "./entities/user.entity";
-import { Decimal } from "generated/prisma/runtime/library";
 
 @Injectable()
 export class UsersService {

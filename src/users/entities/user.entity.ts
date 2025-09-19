@@ -1,6 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsDecimal, IsEmail, IsNumber, IsString, Length, Matches, MinLength } from "class-validator";
-import { Decimal } from "generated/prisma/runtime/library";
+import { IsEmail, IsNumber, IsString, Length, Matches, MinLength } from "class-validator";
 
 export class User {
     
@@ -17,9 +16,9 @@ export class User {
         tipoDocumento: number;
     
         @IsString()
-        @Transform(({ value }) => String(value).replace(/\D/g, "")) // ?? elimina todo lo que no sea dígito
-        @Length(7, 11, { message: "El documento debe tener entre 7 y 11 dígitos" })
-        @Matches(/^\d+$/, { message: "El documento debe contener solo dígitos" }) // DNI argentino suele estar entre 7 y 11 dígitos
+        @Transform(({ value }) => String(value).replace(/\D/g, "")) // ?? elimina todo lo que no sea dï¿½gito
+        @Length(7, 11, { message: "El documento debe tener entre 7 y 11 dï¿½gitos" })
+        @Matches(/^\d+$/, { message: "El documento debe contener solo dï¿½gitos" }) // DNI argentino suele estar entre 7 y 11 dï¿½gitos
         numeroDocumento: string;
         
         @IsEmail()
